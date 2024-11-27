@@ -1,0 +1,173 @@
+﻿<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+            ;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Alinha elementos verticalmente */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgb(12, 160, 160);
+        }
+
+        table {
+            width: 85vw;
+            height: 420x;
+            table-layout: fixed;
+            margin: 50px;
+            color: white;
+        }
+
+        td {
+            background-color: rgb(159, 224, 224);
+            margin-left: 5px;
+            display: flexbox;
+            position: relative;
+            border-radius: 20px;
+        }
+
+            td > div {
+                text-align: center;
+            }
+
+                td > div > a {
+                    text-decoration: none;
+                    font-weight: bolder;
+                    transition-duration: 0.5s;
+                }
+
+                    td > div > a > p {
+                        color: black;
+                    }
+
+            td > button {
+                width: 250px;
+                display: block;
+                margin: 10px auto;
+            }
+
+        button {
+            height: 25px;
+            width: 65px;
+            border-radius: 30px;
+        }
+
+        footer {
+            color: black;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+    </style>
+</head>
+
+
+<body>
+
+    <main>
+
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <a href="">
+                            <img src="~/img/gabinete_gamer_concordia_monster_4_fans_argb_16229_1_41b6ce33d738d01d90bb21fcf9409792.png" alt="Alternate Text" />
+                            <p>Gabinete Gamer Concórdia Monster 4 fans ARGBe</p>
+
+                        </a>
+
+                    </div>
+                    <button>Comprar por R$360,00</button>
+                </td>
+                <td>
+                    <div>
+                        <a href="">
+                            <img src="~/img/Monitor-Gamer-Samsung-T350-75Hz-5Ms-HDMI-22-FULL-HD-Tela-Plana-FreeSync-Game-Mode_1726596830_g.png" alt="Alternate Text" />
+                            <p>Monitor Gamer Samsung T350,<br> 75Hz, 5Ms, HDMI, 22" FULL HD Tela Planabr,<br> FreeSync, Game Mode</p>
+                        </a>
+                    </div>
+                    <button>Comprar por R$475,00</button>
+                </td>
+
+
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <a href="">
+                            <img src="~/img/ssd-gamer-ninja-shuriken-480gb-sata-iii-leitura-500mbs-e-gravacao-400mbs-gnshst3480g_149390.png" alt="Alternate Text" />
+                            <p>SSD Gamer Ninja Shuriken 480GB, Sata III,<br> Leitura 500MBs E Gravação <br>400MBs, GN-SSD-SH/480GB</p>
+                        </a>
+                    </div>
+                    <button>Comprar por R$280,00</button>
+                </td>
+                <td>
+                    <div>
+                        <a href="#">
+                            <img src="~/img/placa_de_video_rtx_2060_6gb_gddr5_gigabyte_2053_1_c288fe20a9206f20b6bcd3ebaefefd59.png" alt="Alternate Text" />
+                            <p>PLACA DE VIDEO RTX 2060 <br>12GB  GDDR5 GIGABYTE</p>
+                        </a>
+                    </div>
+
+                    <button>Comprar por R$1.800,00</button>
+                </td>
+
+            </tr>
+
+        </table>
+    </main>
+
+<script>
+	function consultar(){
+		var jsonEnvio = {};
+		$.ajax({
+			url: "/Produtos/Buscar/",
+			data: jsonEnvio,
+			type:"post",
+			success: function (resp){
+				var jsonVetor = resp;
+				var linhas = "";
+				
+				for (i=0;i<jsonVetor.length;i++){
+					
+					var codigo = jsonVetor[i].codigo;
+					var foto   = jsonVetor[i].foto;
+					var tipo   = jsonVetor[i].tipo;
+					var valor  = jsonVetor[i].valor;
+					
+					linhas += `
+						<img src="` + foto + `" style="width: 120px; height: 120px; border: 1px solid black" /><br />
+						Tipo de Imóvel: ` + tipo + `<br />
+						Valor: R$ ` + valor + `
+						<br />
+						<br />						
+					`;
+				}
+				
+				document.getElementById("imoveis").innerHTML = linhas;
+			},
+			error: function (){
+				alert("Ocorreu um erro ao consultar!!!");
+			}
+		});
+	}
+	consultar();
+</script>
+
+
+
+</body>
+</html>

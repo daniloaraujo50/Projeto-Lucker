@@ -1,0 +1,125 @@
+﻿<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+            ;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Alinha elementos verticalmente */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgb(12, 160, 160);
+        }
+        a{
+
+            color:black;
+            text-decoration: none;
+        }
+
+
+
+        section {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: rgb(159, 224, 224);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            
+        }
+        h3{
+            text-align:center;
+        }
+        
+        button {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        footer {
+            color: black;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+	
+	
+
+
+    <h3>Cadastro de Funcionario</h3>
+
+    
+<section>
+        
+        
+ <form>
+            <h4>Novo Funcionário</h4>
+     
+
+
+	<input type="text" id="nome" placeholder=" Digite seu Nome Completo">
+	<input type="text" id="email" placeholder=" Digite Email ou CPF">
+	<input type="password" id="senha" placeholder="Senha" id="senha">
+    <input type="button" value="Concluir Cadastro" onclick="inserir()"/>
+            <a href="/imobiliaria/PageLogin" style="margin-left:10px">Já tenho cadastro</a>
+  </form>
+
+	</section>
+
+<script type="text/javascript">
+
+	function inserir(){
+		var jsonEnvio = {};
+		jsonEnvio.email     = document.getElementById("email").value;
+		jsonEnvio.nome      = document.getElementById("nome").value;
+		jsonEnvio.senha     = document.getElementById("senha").value;
+		
+		$.ajax({
+			url: "/Funcionario/Inserir/",
+			data: jsonEnvio,
+			type:"post",
+			success: function (resp){
+				if (resp=="ok"){
+					alert("Funcionario cadastrado com sucesso!");
+					document.location.href = "/imobiliaria/PageLogin?email=" + jsonEnvio.email;
+				}else{
+					alert(resp);
+				}
+			},
+			error: function (){
+				alert("Ocorreu um erro ao cadastrar!!!");
+			}
+		});
+	}
+</script>
+	
+</body>
+</html>

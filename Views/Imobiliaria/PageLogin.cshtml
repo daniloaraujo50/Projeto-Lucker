@@ -1,0 +1,127 @@
+﻿<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Alinha elementos verticalmente */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgb(12, 160, 160);
+        }
+        a{
+            color:black;
+            text-decoration: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px; /* Ajuste a distância entre o título e a section */
+            color: black;
+        }
+
+
+        section {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: rgb(159, 224, 224);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            ;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        footer {
+            color: black;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+    </style>
+</head>
+
+
+
+
+
+
+<body>
+	
+
+
+
+
+
+
+@{
+	String email = Context.Request.Query["email"];
+	email = email!=null?email:""; //O ? é o famoso operador ternário
+}
+
+<section>
+<form>
+	<h3>Login</h3>
+	<input type="text" id="email" placeholder="Digite seu e-mail ou CPF" value="@email" />
+	<input type="password" placeholder="Senha" id="senha" />
+	<input type="button" value="Entrar" onclick="fazer_login()"/>
+    <a href="/imobiliaria/PageCadastroFuncionario" style="margin-left:10px">Novo Usuário</a>
+</form>
+        
+</section>
+	
+
+<script>
+	function fazer_login(){
+
+		var jsonEnvio = {};
+		jsonEnvio.email = document.getElementById("email").value;
+		jsonEnvio.senha = document.getElementById("senha").value;
+		
+		$.ajax({
+			url: "/Funcionario/Login/",
+			data: jsonEnvio,
+			type: "post",
+			success: function (resp){
+				if (resp=="ok"){
+					document.location.href = "/imobiliaria/PageAreaAdministrativa";
+				}else{
+					alert("Usuário ou senha inválidos!");
+				}
+			}
+		});
+	}
+
+</script>
+
+	
+</body>
+</html>
